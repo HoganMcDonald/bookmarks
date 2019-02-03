@@ -1,26 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled, { ThemeProvider } from 'styled-components';
+import { TypographyStyle, GoogleFont } from 'react-typography';
+
+import SectionBookmarks from './components/SectionBookmarks';
+import { theme } from './styles/theme';
+import { typography } from './styles/typography';
+import { BookmarkProvider } from './utils/withBookmarks';
+
+const Main = styled.main`
+  width: 100%;
+  min-height: 100vh;
+  background-color: ${props => props.theme.colors.bg};
+  padding: 2rem;
+`;
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <BookmarkProvider>
+        <ThemeProvider theme={theme}>
+          <Main>
+            <TypographyStyle typography={typography} />
+            <GoogleFont typography={typography} />
+            <SectionBookmarks />
+          </Main>
+        </ThemeProvider>
+      </BookmarkProvider>
     );
   }
 }
