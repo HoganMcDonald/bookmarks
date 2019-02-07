@@ -31,6 +31,7 @@ const AddBookmark = styled(Bookmark)`
 
 const BookmarkLink = styled.a`
   ${focus};
+  border-radius: 8px;
 `;
 
 const BookmarkButton = styled.button`
@@ -40,6 +41,13 @@ const BookmarkButton = styled.button`
   border: none;
   padding: 0;
   border-radius: 8px;
+`;
+
+const Title = styled.h2`
+  color: ${props => props.theme.colors.yellow};
+  margin: 0;
+  max-width: 100%;
+  text-align: center;
 `;
 
 const BookmarkContent = styled.div`
@@ -52,17 +60,20 @@ const BookmarkContent = styled.div`
   justify-content: center;
   align-items: center;
   color: currentcolor;
+  overflow: hidden;
+  padding: 0.5rem;
 `;
 
 class SectionBookmarks extends Component {
   state = {
-    modalOpen: true
+    modalOpen: false
   };
 
   closeModal = () => this.setState({ modalOpen: false });
 
-  addBookmark = () => {
-    debugger;
+  addBookmark = bookmark => {
+    const { add } = this.props.bookmarks;
+    add(bookmark);
     this.closeModal();
   };
 
@@ -72,11 +83,17 @@ class SectionBookmarks extends Component {
       <BookmarkContainer>
         <BookmarkModal
           open={this.state.modalOpen}
-          newBookmark={this.addBookmark}
+          addBookmark={this.addBookmark}
           close={this.closeModal}
         />
-        {bookmarks.map(bookmark => (
-          <Bookmark />
+        {bookmarks.map(({ url, title }, i) => (
+          <BookmarkLink href={url} key={i}>
+            <Bookmark>
+              <BookmarkContent>
+                <Title>{title}</Title>
+              </BookmarkContent>
+            </Bookmark>
+          </BookmarkLink>
         ))}
         <BookmarkButton onClick={() => this.setState({ modalOpen: true })}>
           <AddBookmark>

@@ -6,8 +6,10 @@ export const Container = styled.div`
 `;
 
 export const focus = css`
+  transition: ${props => `${props.theme.transition}`};
+
   &:focus {
     outline: none;
-    box-shadow: 0px 0px 0px 2px ${props => props.theme.colors.seafoam};
+    box-shadow: 0px 0px 0px 3px ${props => props.theme.colors.seafoam};
   }
 `;

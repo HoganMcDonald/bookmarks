@@ -18,5 +18,5 @@ export const theme = {
     magenta: '#c678dd'
   },
   easing: 'ease-in-out',
-  transition: 'all 0.25s ease-in-out'
+  transition: 'all 150ms ease-in-out'
 };

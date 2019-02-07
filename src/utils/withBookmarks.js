@@ -14,14 +14,17 @@ class BookmarkProvider extends Component {
     };
   }
 
-  getBookmarks = () => window.localStorage.getItem(BOOKMARKS) || [];
+  getBookmarks = () => JSON.parse(window.localStorage.getItem(BOOKMARKS)) || [];
 
   setBookmarks = bookmarks =>
     this.setState({ bookmarks }, () =>
-      window.localStorage.setItem(BOOKMARKS, this.state.bookmarks)
+      window.localStorage.setItem(
+        BOOKMARKS,
+        JSON.stringify(this.state.bookmarks)
+      )
     );
 
-  add = (url, thumbnail, title) =>
+  add = ({ url, thumbnail, title }) =>
     this.setBookmarks([
       ...this.state.bookmarks,
       {
